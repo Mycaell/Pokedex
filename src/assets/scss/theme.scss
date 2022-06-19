@@ -1,0 +1,12 @@
+@use "@angular/material" as mat;
+@import "./variables.scss";
+
+@include mat.core();
+
+@include mat.all-component-themes($light-theme);
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+}
+.custom-theme {
+  @include mat.all-component-themes($custom-theme);
+}
