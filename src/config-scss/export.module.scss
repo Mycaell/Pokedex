@@ -1,0 +1,16 @@
+// $primary-color: #64ff00;
+
+// :export {
+//   primaryColor: $primary-color;
+// }
+
+// :export {
+//   .wrapper {
+//     background: #000;
+//   }
+// }
+// @import "./variables.scss";
+
+.componentClass {
+  background-color: $colorBackground;
+}

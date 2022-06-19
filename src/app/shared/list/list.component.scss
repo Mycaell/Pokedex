@@ -1,0 +1,91 @@
+@import "../../../config-scss/rem-calc.scss";
+@import "../../../config-scss/variables.scss";
+
+$padding_20: rem-calc(20);
+
+:host {
+  width: 100%;
+
+  .listagem {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    padding: $padding_20 0;
+
+    .pokemon {
+      position: relative;
+      display: flex;
+
+      width: calc(49% - 2.5rem);
+      height: rem-calc(157 - 40);
+
+      margin-bottom: rem-calc(10);
+      padding: $padding_20;
+
+      border-radius: rem-calc(10);
+
+      text-decoration: none;
+      color: $primary-color;
+
+      &__status {
+        h2 {
+          font-size: rem-calc(22);
+          font-style: italic;
+          font-weight: 700;
+          text-transform: capitalize;
+
+          margin-bottom: rem-calc(10);
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+
+          li {
+            span {
+              font-size: rem-calc(13);
+              padding: rem-calc(3);
+
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              border-radius: rem-calc(50);
+
+              width: rem-calc(60);
+              margin-bottom: rem-calc(5);
+            }
+          }
+        }
+      }
+
+      &__image {
+        position: absolute;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: rem-calc(90);
+        width: rem-calc(110);
+
+        right: $padding_20;
+        bottom: $padding_20;
+
+        background: url("../../../assets/images/background/pokemon-background.svg")
+          no-repeat;
+
+        img {
+          width: rem-calc(60);
+        }
+      }
+    }
+
+    @media (max-width: 400px) {
+      a {
+        width: 100% !important;
+      }
+    }
+  }
+}
