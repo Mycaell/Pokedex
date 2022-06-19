@@ -1,5 +1,16 @@
 <app-search (emmitSearch)="search($event)"></app-search>
 
+<section class="toggle">
+  <mat-slide-toggle
+    [color]="color"
+    [checked]="gifMode"
+    [disabled]="disabled"
+    (change)="gifMode = !gifMode"
+    matTooltip="Gif"
+  >
+  </mat-slide-toggle>
+</section>
+
 <section class="listagem fadeIn">
   <ng-template ngFor let-pokemon [ngForOf]="pokemons">
     <a
@@ -27,7 +38,15 @@
         }}"
       >
         <img
+          *ngIf="!gifMode"
           [src]="pokemon.status.sprites.other.dream_world.front_default"
+          [alt]="pokemon.name"
+        />
+        <img
+          *ngIf="gifMode"
+          src="https://projectpokemon.org/images/normal-sprite/{{
+            pokemon.name
+          }}.gif"
           [alt]="pokemon.name"
         />
       </section>

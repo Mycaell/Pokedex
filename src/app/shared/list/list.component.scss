@@ -6,6 +6,18 @@ $padding_20: rem-calc(20);
 :host {
   width: 100%;
 
+  .toggle {
+    display: flex;
+    justify-content: flex-end;
+
+    mat-slide-toggle {
+      margin-top: rem-calc(20);
+      background-color: $gray-light;
+      padding: rem-calc(3);
+      border-radius: rem-calc(10);
+    }
+  }
+
   .listagem {
     display: flex;
     justify-content: space-between;

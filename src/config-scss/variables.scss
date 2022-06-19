@@ -63,9 +63,8 @@ $general: ("black", $black), ("white", $white), ("grass", $grass),
   ("ghost", $ghost), ("ghost-light", $ghost-light), ("dragon", $dragon),
   ("dragon-light", $dragon-light), ("dark", $dark), ("dark-light", $dark-light),
   ("steel", $steel), ("steel-light", $steel-light), ("fairy", $fairy),
-  ("fairy-light", $fairy-light),
-  ("gray", $gray) ("primary-color", $primary-color),
-  ("secondary-color", $secondary-color);
+  ("fairy-light", $fairy-light), ("gray", $gray), ("gray-dark", $gray-dark),
+  ("primary-color", $primary-color), ("secondary-color", $secondary-color);
 
 @each $color in $general {
   $name: nth($color, 1);

@@ -1,19 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 import { PokeApiService } from 'src/app/service/poke-api.service';
-
-// currect path
-
-// import styles from 'src/app.module.scss';
-
-// import './style.scss';
-
-// import { wrapper } from 'src/config-scss/export.module';
-// import { variables } from 'src/config-scss/variables.scss';
-// src\config-scss\export.module.scss
-
-// import { app } from './src/app.module';
-
-// import { as } from 'app.module';
 
 @Component({
   selector: 'app-list',
@@ -24,9 +11,16 @@ export class ListComponent implements OnInit {
   public pokemons: any;
   private pokemonsFlag: any;
 
-  public apiError: boolean = false;
+  public gifMode: boolean = false;
 
   private offset: number = 0;
+  public isLastPage = false;
+
+  public isLoaded: boolean = false;
+  public apiError: boolean = false;
+
+  color: ThemePalette = 'accent';
+  disabled = false;
 
   constructor(private service: PokeApiService) {}
 
@@ -38,7 +32,7 @@ export class ListComponent implements OnInit {
     this.service.getPokemons(offset).subscribe({
       next: (response) => {
         this.pokemons = response.results;
-        console.log(response.results);
+        // console.log(response.results);
         this.pokemonsFlag = this.pokemons;
       },
       error: (error) => {
