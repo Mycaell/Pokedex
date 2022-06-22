@@ -25,7 +25,7 @@
         font-weight: 100;
         top: 0;
         font-size: rem-calc(60);
-        color: rgba(255, 255, 255, 0.171);
+        color: $gray-dark;
       }
 
       h1,
@@ -36,13 +36,13 @@
       }
     }
 
-    .pokemon__status {
+    .pokemon__info {
       position: relative;
-      padding-bottom: rem-calc(50);
+      padding-bottom: rem-calc(20);
 
       img {
         position: absolute;
-        top: rem-calc(-90);
+        top: rem-calc(-105);
         left: rem-calc(30);
         max-width: rem-calc(130);
         z-index: 10;

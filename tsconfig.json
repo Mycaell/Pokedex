@@ -18,14 +18,11 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
-    "types": [
-      // ... your other types
-      "node"
-    ],
     "lib": [
       "es2020",
       "dom"
     ],
+    "allowSyntheticDefaultImports": true,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -33,6 +30,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
   },
-  "include": ["./src/**/*.tsx", "./src/**/*.ts", "./typings/*.ts"]
 
 }

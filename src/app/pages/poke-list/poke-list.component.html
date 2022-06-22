@@ -1,5 +1,65 @@
-<app-header></app-header>
-
 <main>
-  <app-list></app-list>
+  <app-search (emmitSearch)="search($event)"></app-search>
+
+  <section class="toggle">
+    <div class="elements">
+      <mat-slide-toggle
+        [checked]="isGifMode()"
+        (change)="switchGifMode()"
+        color="primary"
+        matTooltip="Gif"
+      >
+      </mat-slide-toggle>
+    </div>
+  </section>
+
+  <section class="listagem fadeIn">
+    <ng-template ngFor let-pokemon [ngForOf]="pokemons">
+      <mat-card
+        class="pokemon"
+        [routerLink]="['details', pokemon.status.id]"
+        *ngIf="pokemon.status"
+      >
+        <mat-card-title-group>
+          <section class="pokemon__info">
+            <mat-card-title> {{ pokemon.name }}</mat-card-title>
+
+            <ul>
+              <li *ngFor="let item of pokemon.status.types">
+                <span class="{{ 'bg-color-' + item.type.name }}-light"
+                  >{{ item.type.name }}
+                </span>
+              </li>
+            </ul>
+          </section>
+
+          <section
+            class="pokemon__image {{
+              'shadow-' + getPrincipalType(pokemon.status.types)
+            }}"
+          >
+            <img
+              *ngIf="!gifMode"
+              [src]="pokemon.status.sprites.other.dream_world.front_default"
+              [alt]="pokemon.name"
+            />
+            <img
+              *ngIf="gifMode"
+              src="https://projectpokemon.org/images/normal-sprite/{{
+                pokemon.name
+              }}.gif"
+              [alt]="pokemon.name"
+            />
+          </section>
+        </mat-card-title-group>
+      </mat-card>
+    </ng-template>
+  </section>
+
+  <img
+    src="assets/images/error.png"
+    alt="Erro ao mostrar pokemon"
+    width="100%"
+    *ngIf="apiError"
+  />
 </main>

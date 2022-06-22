@@ -4,9 +4,7 @@
 @include mat.core();
 
 @include mat.all-component-themes($light-theme);
+
 .dark-theme {
   @include mat.all-component-themes($dark-theme);
-}
-.custom-theme {
-  @include mat.all-component-themes($custom-theme);
 }
