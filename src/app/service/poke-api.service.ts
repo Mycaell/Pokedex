@@ -2,15 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { delay, map, tap, first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokeApiService {
-  // private baseUrl: string =
-  // 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20';
-
   private baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
   constructor(private http: HttpClient) {}
@@ -19,12 +16,14 @@ export class PokeApiService {
     return this.http
       .get<any>(`${this.baseUrl}?offset=${offset}&limit=${limit}`)
       .pipe(
+        // first(),
+        // delay(500000),
         tap((res) => res),
         tap((res) => {
           res.results.map((resPokemons: any) => {
-            this.getPokemonByUrl(resPokemons.url).subscribe(
-              (res) => (resPokemons.status = res)
-            );
+            this.getPokemonByUrl(resPokemons.url).subscribe((res) => {
+              resPokemons.status = res;
+            });
           });
         })
       );

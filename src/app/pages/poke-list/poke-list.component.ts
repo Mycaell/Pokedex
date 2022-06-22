@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { PokeApiService } from 'src/app/service/poke-api.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
+
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-poke-list',
@@ -15,6 +18,8 @@ export class PokeListComponent implements OnInit {
   public gifMode!: boolean;
 
   private offset: number = 0;
+
+  private isFirstPage = true;
   public isLastPage = false;
 
   public isLoaded: boolean = false;
@@ -22,9 +27,12 @@ export class PokeListComponent implements OnInit {
 
   private readonly storageKeyGifMode = 'gif';
 
+  private _showButtonScrollTop = false;
+
   constructor(
     private service: PokeApiService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -33,20 +41,35 @@ export class PokeListComponent implements OnInit {
   }
 
   public getPokemons(offset: number) {
-    this.service.getPokemons(offset).subscribe({
-      next: (response) => {
-        this.pokemons = response.results;
-        console.log(response.results);
-        this.pokemonsFlag = this.pokemons;
-      },
-      error: (error) => {
-        this.apiError = true;
-        console.log(error);
-      },
-    });
+    if (!this.isLastPage) {
+      this.service.getPokemons(offset).subscribe({
+        next: (response) => {
+          if (response.results.length === 0) {
+            this.isLastPage = true;
+            this.openSnackBar('Não há mais registros para mostrar');
+          } else {
+            if (this.isFirstPage) {
+              this.pokemons = response.results;
+              this.isFirstPage = false;
+            } else {
+              this.pokemons.push(...response.results);
+            }
+            // console.log(this.pokemons);
+            this.pokemonsFlag = this.pokemons;
+            this.isLoaded = true;
+          }
+        },
+        error: (error) => {
+          this.apiError = true;
+          console.log(error);
+          this.isLoaded = false;
+        },
+      });
+    }
   }
 
   public search(value: string) {
+    // OBS: o filtro toma como base apenas os pokemons já carregados, o ideal é realizar a busca considerando todos os pokemons existentes;
     const filteredPokemons = this.pokemonsFlag.filter((res: any) => {
       return !res.name.indexOf(value.toLowerCase());
     });
@@ -80,8 +103,25 @@ export class PokeListComponent implements OnInit {
     );
   }
 
-  onScroll(event: Event): void {
-    console.log('scrolando');
-    console.log(event);
+  onScrollDown() {
+    this._showButtonScrollTop = true;
+    this.offset += 20;
+    this.getPokemons(this.offset);
+  }
+
+  onScrollUp() {
+    this._showButtonScrollTop = false;
+  }
+
+  get showButtonScrollTop(): boolean {
+    return this._showButtonScrollTop;
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Ok');
   }
 }

@@ -7,8 +7,16 @@ import { PokeListComponent } from './poke-list/poke-list.component';
 import { PokeDetailComponent } from './poke-detail/poke-detail.component';
 import { MaterialModule } from '../shared/material/material.module';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 @NgModule({
   declarations: [PokeListComponent, PokeDetailComponent],
-  imports: [CommonModule, PagesRoutingModule, SharedModule, MaterialModule],
+  imports: [
+    CommonModule,
+    PagesRoutingModule,
+    SharedModule,
+    MaterialModule,
+    InfiniteScrollModule,
+  ],
 })
 export class PagesModule {}

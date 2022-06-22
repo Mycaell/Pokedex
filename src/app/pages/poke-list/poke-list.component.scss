@@ -40,6 +40,10 @@ $padding_20: rem-calc(20);
           margin-bottom: rem-calc(10);
         }
 
+        mat-card-subtitle {
+          margin-bottom: rem-calc(4);
+        }
+
         ul {
           display: flex;
           flex-direction: column;
@@ -82,6 +86,20 @@ $padding_20: rem-calc(20);
           width: rem-calc(60);
         }
       }
+    }
+    #btn-scroll-top {
+      bottom: 30px;
+      position: fixed;
+      right: 20px;
+      z-index: 2;
+
+      button {
+        border-radius: rem-calc(10);
+      }
+    }
+
+    .loader {
+      width: 100%;
     }
 
     @media (max-width: 535px) {
