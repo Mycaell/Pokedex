@@ -1,27 +1,4 @@
-@import "./rem-calc.scss";
-@import "./variables.scss";
-
 .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  padding: rem-calc(20) 0;
-  border-radius: rem-calc(10);
-
-  text-decoration: none;
-
-  &__primary {
-    color: $white;
-    background: $primary-color;
-  }
-
-  &__secondary {
-    color: $white;
-    background: $secondary-color;
-  }
-
   &:hover {
     opacity: 0.9;
   }

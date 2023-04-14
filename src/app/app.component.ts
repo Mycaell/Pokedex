@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from './shared/theme.enum';
+import { Router } from '@angular/router';
 
 import { ThemeService } from './shared/theme.service';
+import { Theme } from './shared/theme.enum';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,19 @@ import { ThemeService } from './shared/theme.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private themeService: ThemeService) {}
-
-  color = '#262835';
-  disabled = false;
+  constructor(
+    private themeService: ThemeService,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {}
 
   getTheme(): Theme {
     return this.themeService.get();
+  }
+
+  getUrl(): String {
+    return `url(assets/images/background/${this.getTheme()}.png)`
   }
 
   switchTheme(): void {
@@ -26,5 +31,17 @@ export class AppComponent implements OnInit {
 
   isDarkMode(): boolean {
     return this.themeService.isDarkMode();
+  }
+
+  showBackButton(): boolean {
+
+    const url = this.router.url;
+
+    if(url.length == 1){
+      return false;
+    }else{
+      return true;
+    }
+
   }
 }

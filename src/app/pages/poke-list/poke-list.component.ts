@@ -12,7 +12,7 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./poke-list.component.scss'],
 })
 export class PokeListComponent implements OnInit {
-  public pokemons: any;
+  public pokemons: any = [];
   private pokemonsFlag: any;
 
   public gifMode!: boolean;

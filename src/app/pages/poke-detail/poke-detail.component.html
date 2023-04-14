@@ -31,11 +31,6 @@
       </article>
     </section> -->
 
-    <section class="pokemon__names color-white">
-      <h1 class="slideInLeft">{{ pokemon[0].name }}</h1>
-      <h2 class="slideInRight">{{ pokemon[1].names[0].name }}</h2>
-    </section>
-
     <mat-card class="pokemon__info">
       <img
         [src]="pokemon[0].sprites.other.dream_world.front_default"
@@ -44,6 +39,11 @@
       />
 
       <mat-card-content>
+        <section class="pokemon__names">
+          <h1 class="slideInLeft">{{ pokemon[0].name }}</h1>
+          <h2 class="slideInRight">{{ pokemon[1].names[0].name }}</h2>
+        </section>
+
         <mat-tab-group mat-align-tabs="start">
           <mat-tab label="Sobre">Content 1</mat-tab>
           <mat-tab label="Estatísticas">Content 2</mat-tab>
@@ -51,9 +51,6 @@
           <mat-tab label="Evoluções">Content 3</mat-tab>
         </mat-tab-group>
       </mat-card-content>
-      <mat-card-actions>
-        <a [routerLink]="['']" class="btn btn__secondary"> Voltar </a>
-      </mat-card-actions>
     </mat-card>
   </ng-template>
 

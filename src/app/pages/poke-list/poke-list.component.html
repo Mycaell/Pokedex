@@ -1,88 +1,99 @@
 <main>
-  <app-search (emmitSearch)="search($event)"></app-search>
+  <mat-card class="wrapper">
+    <mat-card-content>
+      <app-search (emmitSearch)="search($event)"></app-search>
 
-  <section class="toggle">
-    <div class="elements">
-      <mat-slide-toggle
-        [checked]="isGifMode()"
-        (change)="switchGifMode()"
-        color="primary"
-        matTooltip="Gif"
-      >
-      </mat-slide-toggle>
-    </div>
-  </section>
-
-  <section
-    class="listagem fadeIn"
-    infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollUpDistance]="1.5"
-    [infiniteScrollThrottle]="50"
-    (scrolled)="onScrollDown()"
-    (scrolledUp)="onScrollUp()"
-  >
-    <ng-template ngFor let-pokemon [ngForOf]="pokemons">
-      <mat-card
-        class="pokemon"
-        [routerLink]="['details', pokemon.status.id]"
-        *ngIf="pokemon.status"
-      >
-        <mat-card-title-group>
-          <section class="pokemon__info">
-            <mat-card-title> {{ pokemon.name }}</mat-card-title>
-            <mat-card-subtitle># {{ pokemon.status.id }}</mat-card-subtitle>
-            <ul>
-              <li *ngFor="let item of pokemon.status.types">
-                <span class="{{ 'bg-color-' + item.type.name }}-light"
-                  >{{ item.type.name }}
-                </span>
-              </li>
-            </ul>
-          </section>
-
-          <section
-            class="pokemon__image {{
-              'shadow-' + getPrincipalType(pokemon.status.types)
-            }}"
+      <section class="toggle">
+        <div class="elements">
+          <mat-slide-toggle
+            [checked]="isGifMode()"
+            (change)="switchGifMode()"
+            color="primary"
+            matTooltip="Gif"
           >
-            <img
-              *ngIf="!gifMode"
-              [src]="pokemon.status.sprites.other.dream_world.front_default"
-              [alt]="pokemon.name"
-            />
-            <img
-              *ngIf="gifMode"
-              src="https://projectpokemon.org/images/normal-sprite/{{
-                pokemon.name
-              }}.gif"
-              [alt]="pokemon.name"
-            />
-          </section>
-        </mat-card-title-group>
-      </mat-card>
-    </ng-template>
+          </mat-slide-toggle>
+        </div>
+      </section>
 
-    <div id="btn-scroll-top" [hidden]="!showButtonScrollTop">
-      <button
-        mat-mini-fab
-        color="primary"
-        (click)="scrollToTop()"
-        matTooltip="Ir para o topo"
+      <section
+        class="listagem fadeIn"
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollUpDistance]="1.5"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScrollDown()"
+        (scrolledUp)="onScrollUp()"
       >
-        <mat-icon>keyboard_arrow_up</mat-icon>
-      </button>
-    </div>
 
-    <div class="loader">
-      <app-loader [visible]="!isLoaded && !apiError"></app-loader>
-    </div>
-  </section>
+        <ng-template *ngIf="pokemons.length > 0; else noRecords" ngFor let-pokemon [ngForOf]="pokemons">
+          <mat-card
+            class="pokemon"
+            [routerLink]="['details', pokemon.status.id]"
+            *ngIf="pokemon.status"
+          >
+            <mat-card-title-group>
+              <section class="pokemon__info">
+                <mat-card-title> {{ pokemon.name }}</mat-card-title>
+                <mat-card-subtitle># {{ pokemon.status.id }}</mat-card-subtitle>
+                <ul>
+                  <li *ngFor="let item of pokemon.status.types">
+                    <span class="{{ 'bg-color-' + item.type.name }}-light"
+                      >{{ item.type.name }}
+                    </span>
+                  </li>
+                </ul>
+              </section>
 
-  <img
-    src="assets/images/error.png"
-    alt="Erro ao mostrar pokemon"
-    width="100%"
-    *ngIf="apiError"
-  />
+              <section
+                class="pokemon__image {{
+                  'shadow-' + getPrincipalType(pokemon.status.types)
+                }}"
+              >
+                <img
+                  *ngIf="!gifMode"
+                  [src]="pokemon.status.sprites.other.dream_world.front_default"
+                  [alt]="pokemon.name"
+                />
+                <img
+                  *ngIf="gifMode"
+                  src="https://projectpokemon.org/images/normal-sprite/{{
+                    pokemon.name
+                  }}.gif"
+                  [alt]="pokemon.name"
+                />
+              </section>
+            </mat-card-title-group>
+          </mat-card>
+        </ng-template>
+
+        <ng-template #noRecords>
+          <div class="noRecords">
+            <p>Nenhum registro encontrado.</p>
+          </div>
+        </ng-template>
+
+        <div id="btn-scroll-top" [hidden]="!showButtonScrollTop">
+          <button
+            mat-mini-fab
+            color="primary"
+            (click)="scrollToTop()"
+            matTooltip="Ir para o topo"
+          >
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+        </div>
+
+        <div class="loader">
+          <app-loader [visible]="!isLoaded && !apiError"></app-loader>
+        </div>
+      </section>
+
+      <img
+        src="assets/images/error.png"
+        alt="Erro ao mostrar pokemon"
+        width="100%"
+        *ngIf="apiError"
+      />
+    </mat-card-content>
+  </mat-card>
 </main>

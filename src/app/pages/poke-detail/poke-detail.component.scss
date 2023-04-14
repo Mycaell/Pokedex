@@ -2,8 +2,10 @@
 @import "../../../assets/scss/variables.scss";
 
 :host {
+
   main {
-    margin-top: rem-calc(40);
+    margin-top: rem-calc(70);
+    padding-bottom: rem-calc(20);
 
     .pokemon__names {
       position: relative;
@@ -14,10 +16,13 @@
       height: 75px;
 
       padding: 0 rem-calc(30);
+      margin: 10px 0;
+
 
       h1 {
         font-size: rem-calc(32);
         text-transform: capitalize;
+        margin: 2px 0;
       }
 
       h2 {
@@ -25,7 +30,6 @@
         font-weight: 100;
         top: 0;
         font-size: rem-calc(60);
-        color: $gray-dark;
       }
 
       h1,
@@ -39,10 +43,11 @@
     .pokemon__info {
       position: relative;
       padding-bottom: rem-calc(20);
+      margin-bottom: rem-calc(20);
 
       img {
         position: absolute;
-        top: rem-calc(-105);
+        top: rem-calc(-85);
         left: rem-calc(30);
         max-width: rem-calc(130);
         z-index: 10;
@@ -50,6 +55,10 @@
         //Remove Bug Animation
         -webkit-animation-fill-mode: none !important;
         animation-fill-mode: none !important;
+
+        &:hover {
+          transform: scale(1.8);
+        }
       }
 
       &__statistics {

@@ -2,10 +2,16 @@
 @import "../assets/scss/variables.scss";
 
 :host {
+
+  .container {
+    position: relative;
+  }
+
   mat-toolbar {
     background-color: $transparent;
+    padding: 0;
 
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 }

@@ -1,21 +1,31 @@
-<main class="{{ getTheme() }}">
-  <mat-toolbar>
-    <section class="toggle">
-      <div class="elements">
-        <mat-icon class="color-gray-dark">brightness_5</mat-icon>
-        <mat-slide-toggle
-          [checked]="isDarkMode()"
-          (change)="switchTheme()"
-          color="primary"
-          matTooltip="Claro/Escuro"
-        >
-        </mat-slide-toggle>
-        <mat-icon class="color-gray-dark">bedtime</mat-icon>
-      </div>
-    </section>
-  </mat-toolbar>
+<div class="container"  [ngStyle]="{'background-image': getUrl()}">
 
-  <app-header></app-header>
+  <main class="{{ getTheme() }}">
+    <mat-toolbar>
+      <section class="back">
+        <button *ngIf="showBackButton()" [routerLink]="['']" mat-raised-button color="primary" class="btn">
+          <mat-icon>arrow_back</mat-icon>
+          Voltar
+        </button>
+      </section>
+      <section class="toggle">
+        <div class="elements">
+          <mat-icon class="color-gray-dark">brightness_5</mat-icon>
+          <mat-slide-toggle
+            [checked]="isDarkMode()"
+            (change)="switchTheme()"
+            color="primary"
+            matTooltip="Claro/Escuro"
+          >
+          </mat-slide-toggle>
+          <mat-icon class="color-gray-dark">bedtime</mat-icon>
+        </div>
+      </section>
+    </mat-toolbar>
 
-  <router-outlet></router-outlet>
-</main>
+    <app-header></app-header>
+
+    <router-outlet></router-outlet>
+  </main>
+
+</div>
