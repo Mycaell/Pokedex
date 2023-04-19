@@ -16,8 +16,6 @@ export class PokeApiService {
     return this.http
       .get<any>(`${this.baseUrl}?offset=${offset}&limit=${limit}`)
       .pipe(
-        // first(),
-        // delay(500000),
         tap((res) => res),
         tap((res) => {
           res.results.map((resPokemons: any) => {

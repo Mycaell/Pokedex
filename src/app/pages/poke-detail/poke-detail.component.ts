@@ -27,9 +27,11 @@ export class PokeDetailComponent implements OnInit {
 
   public getPokemon() {
     const id = this.route.snapshot.params['id'];
+
     const pokemon = this.service.getPokemonByUrl(
       `${this.baseUrlPokemonId}/${id}`
     );
+
     const name = this.service.getPokemonByUrl(
       `${this.baseUrlPokemonName}/${id}`
     );

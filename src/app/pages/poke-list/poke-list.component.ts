@@ -4,7 +4,6 @@ import { PokeApiService } from 'src/app/service/poke-api.service';
 import { LocalStorageService } from 'src/app/shared/local-storage.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-poke-list',
@@ -41,31 +40,30 @@ export class PokeListComponent implements OnInit {
   }
 
   public getPokemons(offset: number) {
-    if (!this.isLastPage) {
-      this.service.getPokemons(offset).subscribe({
-        next: (response) => {
-          if (response.results.length === 0) {
-            this.isLastPage = true;
-            this.openSnackBar('Não há mais registros para mostrar');
+    if (this.isLastPage) return
+
+    this.service.getPokemons(offset).subscribe({
+      next: (response) => {
+        if (response.results.length === 0) {
+          this.isLastPage = true;
+          this.openSnackBar('Não há mais registros para mostrar');
+        } else {
+          if (this.isFirstPage) {
+            this.pokemons = response.results;
+            this.isFirstPage = false;
           } else {
-            if (this.isFirstPage) {
-              this.pokemons = response.results;
-              this.isFirstPage = false;
-            } else {
-              this.pokemons.push(...response.results);
-            }
-            // console.log(this.pokemons);
-            this.pokemonsFlag = this.pokemons;
-            this.isLoaded = true;
+            this.pokemons.push(...response.results);
           }
-        },
-        error: (error) => {
-          this.apiError = true;
-          console.log(error);
-          this.isLoaded = false;
-        },
-      });
-    }
+          this.pokemonsFlag = this.pokemons;
+          this.isLoaded = true;
+        }
+      },
+      error: (error) => {
+        this.apiError = true;
+        console.log(error);
+        this.isLoaded = false;
+      },
+    });
   }
 
   public search(value: string) {
