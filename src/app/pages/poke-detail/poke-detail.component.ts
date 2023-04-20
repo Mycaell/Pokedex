@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { PokeApiService } from 'src/app/service/poke-api.service';
+import { Utils } from 'src/app/util/utils';
 
 @Component({
   selector: 'app-poke-detail',
@@ -11,15 +12,17 @@ import { PokeApiService } from 'src/app/service/poke-api.service';
   styleUrls: ['./poke-detail.component.scss'],
 })
 export class PokeDetailComponent implements OnInit {
-  private baseUrlPokemonId = 'https://pokeapi.co/api/v2/pokemon';
-  private baseUrlPokemonName: string =
-    'https://pokeapi.co/api/v2/pokemon-species';
+  private readonly baseUrlPokemonId: string = 'https://pokeapi.co/api/v2/pokemon';
+  private readonly baseUrlPokemonName: string = 'https://pokeapi.co/api/v2/pokemon-species';
 
   public pokemon: any;
   public isLoaded: boolean = false;
   public apiError: boolean = false;
 
-  constructor(private service: PokeApiService, private route: ActivatedRoute) {}
+  constructor(
+    private service: PokeApiService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.getPokemon();
@@ -39,6 +42,7 @@ export class PokeDetailComponent implements OnInit {
     return forkJoin([pokemon, name]).subscribe({
       next: (response) => {
         this.pokemon = response;
+        console.log("poke:" , response)
         this.isLoaded = true;
       },
       error: (error) => {
@@ -47,4 +51,10 @@ export class PokeDetailComponent implements OnInit {
       },
     });
   }
+
+
+  public getPrincipalType(list: any[]) {
+    return Utils.getPrincipalType(list);
+  }
+
 }

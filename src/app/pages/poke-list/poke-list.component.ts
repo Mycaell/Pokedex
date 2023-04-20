@@ -5,6 +5,8 @@ import { LocalStorageService } from 'src/app/shared/local-storage.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+import { Utils } from './../../util/utils';
+
 @Component({
   selector: 'app-poke-list',
   templateUrl: './poke-list.component.html',
@@ -32,7 +34,7 @@ export class PokeListComponent implements OnInit {
     private service: PokeApiService,
     private localStorageService: LocalStorageService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getPokemons(this.offset);
@@ -40,7 +42,7 @@ export class PokeListComponent implements OnInit {
   }
 
   public getPokemons(offset: number) {
-    if (this.isLastPage) return
+    if (this.isLastPage) return;
 
     this.service.getPokemons(offset).subscribe({
       next: (response) => {
@@ -76,9 +78,7 @@ export class PokeListComponent implements OnInit {
   }
 
   public getPrincipalType(list: any[]) {
-    const color = list.filter((x) => x.slot === 1)[0]?.type.name;
-
-    return color;
+    return Utils.getPrincipalType(list);
   }
 
   public isGifMode(): boolean {

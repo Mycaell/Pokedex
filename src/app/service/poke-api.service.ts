@@ -8,9 +8,9 @@ import { delay, map, tap, first } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class PokeApiService {
-  private baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
+  private readonly  baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getPokemons(offset: number, limit: number = 20): Observable<any> {
     return this.http

@@ -1,4 +1,4 @@
-<main>
+<div class="wrapper">
   <ng-template [ngIf]="isLoaded">
     <!-- <section class="pokemon__names">
       <h1 class="slideInLeft color-white">{{ pokemon[0].name }}</h1>
@@ -35,7 +35,7 @@
       <img
         [src]="pokemon[0].sprites.other.dream_world.front_default"
         [alt]="pokemon[0].name"
-        class="slideInDown"
+        class="slideInDown {{'shadow-' + getPrincipalType(pokemon[0].types)}}"
       />
 
       <mat-card-content>
@@ -54,10 +54,14 @@
     </mat-card>
   </ng-template>
 
-  <img
+  <mat-card class="error__info"  *ngIf="apiError || !isLoaded">
+
+    <app-loader [visible]="!isLoaded && !apiError"></app-loader>
+
+    <img
     src="assets/images/error.png"
     alt="Erro ao mostrar pokemon"
-    width="100%"
     *ngIf="apiError"
-  />
-</main>
+    />
+  </mat-card>
+</div>
