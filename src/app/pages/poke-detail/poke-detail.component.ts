@@ -42,7 +42,6 @@ export class PokeDetailComponent implements OnInit {
     return forkJoin([pokemon, name]).subscribe({
       next: (response) => {
         this.pokemon = response;
-        console.log("poke:" , response)
         this.isLoaded = true;
       },
       error: (error) => {
